@@ -22,13 +22,15 @@ ENV DOCKER=1
 ENV GIT_DISCOVERY_ACROSS_FILESYSTEM=1
 
 # set timezone environment variable
-ENV TZ=Etc/UTC
+ENV TZ=Asia/Shanghai
 
 # set noninteractive mode so tzdata doesn't ask to set timezone on install
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Do not use acore dashboard to install
 # since it's not cacheable by docker
+RUN sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list
+
 RUN apt-get update && apt-get install -y gdb gdbserver git dos2unix lsb-core sudo curl unzip \
   make cmake clang libmysqlclient-dev \
   libboost-system1.7*-dev libboost-filesystem1.7*-dev libboost-program-options1.7*-dev libboost-iostreams1.7*-dev \
